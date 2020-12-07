@@ -123,8 +123,12 @@ AUTH_USER_MODEL = 'appdiverxia.Usuario'
 
 STATIC_URL = '/static/'
 
-EMAIL_HOST = 'mail.mevisoft.com'
-EMAIL_PORT = '465'
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'jramos@luisml.com'
-EMAIL_HOST_PASSWORD = '@passwordjramos'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'juhanramos3@gmail.com'
+EMAIL_HOST_PASSWORD = 'snisndsudcgiaxfm' #past the key or password app here
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'default from email'
+
+
