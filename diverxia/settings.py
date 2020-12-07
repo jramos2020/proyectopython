@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 # DIR STATIC
-STATICFILES_DIRS = [BASE_DIR /'static']
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Application definition
 
@@ -56,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 'DIRS': [BASE_DIR / 'templates']
-        'DIRS': [BASE_DIR /'appdiverxia/paginadiverxia']
+        'DIRS': [BASE_DIR / 'appdiverxia/paginadiverxia']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -123,12 +123,10 @@ AUTH_USER_MODEL = 'appdiverxia.Usuario'
 
 STATIC_URL = '/static/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'juhanramos3@gmail.com'
-EMAIL_HOST_PASSWORD = 'snisndsudcgiaxfm' #past the key or password app here
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'default from email'
-
-
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'juhanramos3@gmail.com'
+# EMAIL_HOST_PASSWORD = 'snisndsudcgiaxfm' #past the key or password app here
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'default from email'

@@ -1,0 +1,1 @@
+java -jar bin\fakeSMTP-2.0.jar
