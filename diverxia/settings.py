@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 # DIR STATIC
-STATICFILES_DIRS = ['C:/Users/jramos/PycharmProjects/diverxia/static']
+STATICFILES_DIRS = [BASE_DIR /'static']
 
 # Application definition
 
@@ -56,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 'DIRS': [BASE_DIR / 'templates']
-        'DIRS': ['C:/Users/jramos/PycharmProjects/diverxia/appdiverxia/paginadiverxia']
+        'DIRS': [BASE_DIR /'appdiverxia/paginadiverxia']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
