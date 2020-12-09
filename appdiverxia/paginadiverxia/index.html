@@ -33,6 +33,31 @@
 </head>
 
 <body>
+    <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v9.0'
+          });
+        };
+
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <!-- Your Chat Plugin code -->
+      <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="100218348633298"
+        theme_color="#0A7CFF"
+        logged_in_greeting="Hola Te saluda Diverxia, en que podemos ayudarlo pum pum ?"
+        logged_out_greeting="Hola Te saluda Diverxia, en que podemos ayudarlo pum pum ?">
+      </div>
 
     <!-- Start Main Top -->
     <div class="main-top">
@@ -79,7 +104,7 @@
                     </div>
                     <div class="our-link">
                         <ul>
-                            <li><a href="#">Iniciar Sesion</a></li>
+                            <li><a href="http://127.0.0.1:8000/admin/login/">Iniciar Sesion</a></li>
                         </ul>
                     </div>
                 </div>
@@ -481,8 +506,8 @@
                                 Casacas, Gorras, Mochilas, Polos.
                             </p>
                             <ul>
-                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                                <li><a href="https://m.me/100218348633298?ref=diverxia" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="https://bit.ly/2VPleUE" target="_blank"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -519,6 +544,7 @@
         </div>
     </footer>
     <!-- End Footer  -->
+        <!-- Load Facebook SDK for JavaScript -->
 
     <!-- Start copyright  -->
     <div class="footer-copyright">

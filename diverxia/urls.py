@@ -22,7 +22,7 @@ from appdiverxia.views import producto
 from appdiverxia.views import contacto
 from appdiverxia.views import contactoEnviar
 
-
+admin.site.login_template='login.html'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index,name='index'),

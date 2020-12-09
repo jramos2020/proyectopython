@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -123,10 +123,11 @@ AUTH_USER_MODEL = 'appdiverxia.Usuario'
 
 STATIC_URL = '/static/'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'juhanramos3@gmail.com'
-# EMAIL_HOST_PASSWORD = 'snisndsudcgiaxfm' #past the key or password app here
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = 'default from email'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST_USER = 'juhanramos3@gmail.com'
+#EMAIL_HOST_PASSWORD = 'snisndsudcgiaxfm' #past the key or password app here
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+#DEFAULT_FROM_EMAIL = 'default from email'
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"), )
