@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="diverxia_db@localhost" uuid="98422121-3e52-42dd-ae31-f0119e613c20">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/diverxia_db</jdbc-url>
-      <driver-properties>
-        <property name="serverTimezone" value="UTC" />
-      </driver-properties>
-    </data-source>
-    <data-source source="LOCAL" name="Django default" uuid="5498413e-1837-4b04-9463-dd2cac7bfe34">
+    <data-source source="LOCAL" name="Django default" uuid="0ff1b52e-694b-45d8-8473-57abbd94d0a4">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/diverxia/settings.py</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://127.0.0.1:3306/diverxia_db</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="UTC" />
+      </driver-properties>
     </data-source>
   </component>
 </project>

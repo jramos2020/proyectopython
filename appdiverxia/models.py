@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Persona(models.Model):
-    codper = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     direccion = models.CharField(max_length=60)
@@ -14,111 +13,125 @@ class Persona(models.Model):
 class Usuario(AbstractUser):
     address = models.CharField(max_length=100)
 
+    class Meta:
+        db_table = 'auth_user'
 
-# perfil = models.OneToOneField(Perfil, on_delete=models.CASCADE)
-
-# Create your models here.
 
 class Cliente(models.Model):
-    #codcli = models.IntegerField(primary_key=True)
-    nombre = models.CharField(max_length=45)
-    apellido = models.CharField(max_length=45)
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
     fecha = models.DateField()
     dni = models.CharField(max_length=8)
-    direccion = models.CharField(max_length=45)
     celular = models.CharField(max_length=9)
-    correo = models.EmailField()
-    estado = models.BooleanField()  # This field type is a guess.
-    usuario_id = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='usuario_id')
+    correo = models.CharField(max_length=40, blank=True, null=True)
+    estado = models.TextField(blank=True, null=True)  # This field type is a guess.
+    usuario = models.ForeignKey('Usuario', models.DO_NOTHING)
+    direccion = models.ForeignKey('Direccion', models.DO_NOTHING)
 
-class Direccion(models.Model):
-    nombre = models.CharField(max_length=45)
-    estado = models.BooleanField()  # This field type is a guess.
+
+class Comprobantepago(models.Model):
+    ticket = models.ForeignKey('Ticket', models.DO_NOTHING)
+    empleado = models.ForeignKey('Empleado', models.DO_NOTHING)
+    tipo = models.CharField(max_length=8)
+    fecha = models.DateTimeField()
+    estado = models.TextField(blank=True, null=True)  # This field type is a guess.
+    pago = models.ForeignKey('Metodopago', models.DO_NOTHING)
+    repartidor = models.ForeignKey('Repartidor', models.DO_NOTHING)
+
 
 class Detalleentrada(models.Model):
-    nroent = models.ForeignKey('Entrada', models.DO_NOTHING, db_column='nroent')
-    producto_id = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id')
+    entrada = models.OneToOneField('Entrada', models.DO_NOTHING, primary_key=True)
+    producto = models.ForeignKey('Producto', models.DO_NOTHING)
     cantidad = models.IntegerField()
+
+    class Meta:
+        unique_together = (('entrada', 'producto'),)
 
 
 class Detallesalida(models.Model):
+    salida = models.OneToOneField('Salida', models.DO_NOTHING, primary_key=True)
+    producto = models.ForeignKey('Producto', models.DO_NOTHING)
     cantidad = models.IntegerField()
-    nrosal = models.ForeignKey('Salida', models.DO_NOTHING, db_column='nrosal')
-    producto_id = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id')
+
+    class Meta:
+        unique_together = (('salida', 'producto'),)
 
 
 class Detalleticket(models.Model):
+    ticket = models.OneToOneField('Ticket', models.DO_NOTHING, primary_key=True)
+    producto = models.ForeignKey('Producto', models.DO_NOTHING)
     cantidad = models.IntegerField()
-    ticket_id = models.ForeignKey('Ticket', models.DO_NOTHING, db_column='ticket_id')
-    producto_id = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id')
+
+    class Meta:
+        unique_together = (('ticket', 'producto'),)
+
+
+class Direccion(models.Model):
+    nombre = models.CharField(max_length=40)
+    estado = models.TextField()  # This field type is a guess.
 
 
 class Empleado(models.Model):
-
-    nombre = models.CharField(max_length=45)
-    apellido = models.CharField(max_length=45)
+    nombre = models.CharField(max_length=40)
+    apellido = models.CharField(max_length=40)
     dni = models.CharField(max_length=8)
     fecha = models.DateField()
     celular = models.CharField(max_length=9)
-    correo = models.EmailField()
-    estado = models.BooleanField()  # This field type is a guess.
-    usuario_id = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='usuario_id')
-    direccion_id = models.ForeignKey('Direccion', models.DO_NOTHING, db_column='direccion_id')
+    correo = models.CharField(max_length=40)
+    estado = models.TextField()  # This field type is a guess.
+    usuario = models.ForeignKey('Usuario', models.DO_NOTHING)
+    direccion = models.ForeignKey(Direccion, models.DO_NOTHING)
 
 
 class Entrada(models.Model):
-    proveedor_id = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='proveedor_id')
-    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_id')
+    proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING)
+    empleado = models.ForeignKey(Empleado, models.DO_NOTHING)
     fecha = models.DateTimeField()
-    estado = models.BooleanField()  # This field type is a guess.
+    estado = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+
+class Metodopago(models.Model):
+    tipopago = models.CharField(max_length=50)
+    estado = models.TextField()  # This field type is a guess.
+
 
 class Producto(models.Model):
-    nombre = models.CharField(max_length=45)
+    nombre = models.CharField(max_length=50)
     precio = models.DecimalField(max_digits=7, decimal_places=2)
-    stock = models.IntegerField()
+    stock = models.IntegerField(blank=True, null=True)
     estado = models.BooleanField()  # This field type is a guess.
 
 
 class Proveedor(models.Model):
-
-    nombre = models.CharField(max_length=45)
+    nombre = models.CharField(max_length=40)
     celular = models.CharField(max_length=9)
-    correo = models.EmailField()
+    correo = models.CharField(max_length=40)
     ruc = models.CharField(max_length=11)
-    estado = models.BooleanField()
-    direccion_id = models.ForeignKey('Direccion', models.DO_NOTHING, db_column='direccion_id')
+    estado = models.TextField()  # This field type is a guess.
+    direccion = models.ForeignKey(Direccion, models.DO_NOTHING)
 
-class Salida(models.Model):
-
-    direccion_id = models.ForeignKey('Direccion', models.DO_NOTHING, db_column='direccion_id')
-    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_id')
-    fecha = models.DateTimeField()
-    estado = models.BooleanField() # This field type is a guess.
-
-class Ticket(models.Model):
-
-    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_id')
-    cliente_id = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='cliente_id')
-    fecha = models.DateField()
-    estado = models.BooleanField()  # This field type is a guess.
-
-class MetodoPago(models.Model):
-    tipopago = models.CharField(max_length=9)
-    estado = models.BooleanField()  # This field type is a guess.
 
 class Repartidor(models.Model):
-
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    dni = models.CharField(max_length=8)
+    dni = models.CharField(max_length=5)
     celular = models.CharField(max_length=9)
-    estado = models.BooleanField()
-
-class ComprobantePago(models.Model):
-
-    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_id')
-    cliente_id = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='cliente_id')
-    fecha = models.DateField()
-    estado = models.BooleanField()  # This field type is a guess.
+    estado = models.TextField()  # This field type is a guess.
 
 
+class Salida(models.Model):
+    direccion = models.ForeignKey(Direccion, models.DO_NOTHING)
+    empleado = models.ForeignKey(Empleado, models.DO_NOTHING)
+    fecha = models.DateTimeField()
+    estado = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+
+class Ticket(models.Model):
+    cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
+    empleado = models.ForeignKey(Empleado, models.DO_NOTHING)
+    fecha = models.DateTimeField()
+    estado = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+    # perfil = models.OneToOneField(Perfil, on_delete=models.CASCADE)
+
+# Create your models here.
