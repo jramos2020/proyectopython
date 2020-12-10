@@ -10,13 +10,12 @@ from appdiverxia.models import Proveedor
 from appdiverxia.models import Salida
 from appdiverxia.models import Entrada
 from appdiverxia.models import Ticket
-from appdiverxia.models import Direccion
+
 
 from appdiverxia.models import Detalleentrada
 from appdiverxia.models import Detallesalida
-from appdiverxia.models import Detalleticket
+from appdiverxia.models import TicketDetalle
 
-from appdiverxia.models import Persona
 from django.contrib.auth.admin import UserAdmin
 
 admin.site.register(Usuario,UserAdmin)
@@ -30,7 +29,4 @@ admin.site.register(Ticket)
 
 admin.site.register(Detalleentrada)
 admin.site.register(Detallesalida)
-admin.site.register(Detalleticket)
-
-admin.site.register(Persona)
-admin.site.register(Direccion)
+admin.site.register(TicketDetalle)
