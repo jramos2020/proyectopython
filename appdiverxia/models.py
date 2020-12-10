@@ -21,89 +21,104 @@ class Usuario(AbstractUser):
 
 class Cliente(models.Model):
     #codcli = models.IntegerField(primary_key=True)
-    nomcli = models.CharField(max_length=45)
-    apecli = models.CharField(max_length=45)
-    feccli = models.DateField()
-    dnicli = models.CharField(max_length=8)
-    dircli = models.CharField(max_length=45)
-    #telcli = models.CharField(max_length=8)
-    celcli = models.CharField(max_length=9)
-    corcli = models.EmailField()
-    estcli = models.BooleanField()  # This field type is a guess.
-    codusu = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='codusu')
+    nombre = models.CharField(max_length=45)
+    apellido = models.CharField(max_length=45)
+    fecha = models.DateField()
+    dni = models.CharField(max_length=8)
+    direccion = models.CharField(max_length=45)
+    celular = models.CharField(max_length=9)
+    correo = models.EmailField()
+    estado = models.BooleanField()  # This field type is a guess.
+    usuario_id = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='usuario_id')
 
-
-class Destino(models.Model):
-    #coddes = models.IntegerField(primary_key=True)
-    nomdes = models.CharField(max_length=45)
-    estdes = models.BooleanField()  # This field type is a guess.
-
+class Direccion(models.Model):
+    nombre = models.CharField(max_length=45)
+    estado = models.BooleanField()  # This field type is a guess.
 
 class Detalleentrada(models.Model):
     nroent = models.ForeignKey('Entrada', models.DO_NOTHING, db_column='nroent')
-    codpro = models.ForeignKey('Producto', models.DO_NOTHING, db_column='codpro')
+    producto_id = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id')
     cantidad = models.IntegerField()
 
 
 class Detallesalida(models.Model):
     cantidad = models.IntegerField()
     nrosal = models.ForeignKey('Salida', models.DO_NOTHING, db_column='nrosal')
-    codpro = models.ForeignKey('Producto', models.DO_NOTHING, db_column='codpro')
+    producto_id = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id')
 
 
 class Detalleticket(models.Model):
     cantidad = models.IntegerField()
-    nrotick = models.ForeignKey('Ticket', models.DO_NOTHING, db_column='nrotick')
-    codpro = models.ForeignKey('Producto', models.DO_NOTHING, db_column='codpro')
+    ticket_id = models.ForeignKey('Ticket', models.DO_NOTHING, db_column='ticket_id')
+    producto_id = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id')
 
 
 class Empleado(models.Model):
-    #codempleado = models.IntegerField(primary_key=True)
-    nomemp = models.CharField(max_length=45)
-    apeemp = models.CharField(max_length=45)
-    dniemp = models.CharField(max_length=8)
-    fechemp = models.DateField()
-    #telemp = models.CharField(max_length=45)
-    celemp = models.CharField(max_length=9)
-    corremp = models.EmailField()
-    estemp = models.BooleanField()  # This field type is a guess.
-    codusu = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='codusu')
+
+    nombre = models.CharField(max_length=45)
+    apellido = models.CharField(max_length=45)
+    dni = models.CharField(max_length=8)
+    fecha = models.DateField()
+    celular = models.CharField(max_length=9)
+    correo = models.EmailField()
+    estado = models.BooleanField()  # This field type is a guess.
+    usuario_id = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='usuario_id')
+    direccion_id = models.ForeignKey('Direccion', models.DO_NOTHING, db_column='direccion_id')
 
 
 class Entrada(models.Model):
-    #nroent = models.IntegerField(primary_key=True)
-    codprov = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='codprov')
-    codempleado = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='codempleado')
+    proveedor_id = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='proveedor_id')
+    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_id')
     fecha = models.DateTimeField()
-    estent = models.BooleanField()  # This field type is a guess.
+    estado = models.BooleanField()  # This field type is a guess.
 
 class Producto(models.Model):
-    #codpro = models.IntegerField(primary_key=True)
-    nompro = models.CharField(max_length=45)
-    prepro = models.DecimalField(max_digits=7, decimal_places=2)
-    stok = models.IntegerField()
-    estpro = models.BooleanField()  # This field type is a guess.
+    nombre = models.CharField(max_length=45)
+    precio = models.DecimalField(max_digits=7, decimal_places=2)
+    stock = models.IntegerField()
+    estado = models.BooleanField()  # This field type is a guess.
 
 
 class Proveedor(models.Model):
-    #codprov = models.IntegerField(primary_key=True)
-    nomprov = models.CharField(max_length=45)
-    celprov = models.CharField(max_length=9)
-    corrprov = models.EmailField()
-    rucprov = models.CharField(max_length=11)
-    estprov = models.BooleanField()
 
+    nombre = models.CharField(max_length=45)
+    celular = models.CharField(max_length=9)
+    correo = models.EmailField()
+    ruc = models.CharField(max_length=11)
+    estado = models.BooleanField()
+    direccion_id = models.ForeignKey('Direccion', models.DO_NOTHING, db_column='direccion_id')
 
 class Salida(models.Model):
-    #nrosal = models.IntegerField(primary_key=True)
-    coddes = models.ForeignKey('Destino', models.DO_NOTHING, db_column='coddes')
-    codempleado = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='codempleado')
-    techa = models.DateTimeField()
-    estsal = models.BooleanField() # This field type is a guess.
+
+    direccion_id = models.ForeignKey('Direccion', models.DO_NOTHING, db_column='direccion_id')
+    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_id')
+    fecha = models.DateTimeField()
+    estado = models.BooleanField() # This field type is a guess.
 
 class Ticket(models.Model):
-    #nrotick = models.IntegerField(primary_key=True)
-    codempleado = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='codempleado')
-    codcli = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='codcli')
+
+    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_id')
+    cliente_id = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='cliente_id')
     fecha = models.DateField()
-    est = models.BooleanField()  # This field type is a guess.
+    estado = models.BooleanField()  # This field type is a guess.
+
+class MetodoPago(models.Model):
+    tipopago = models.CharField(max_length=9)
+    estado = models.BooleanField()  # This field type is a guess.
+
+class Repartidor(models.Model):
+
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    dni = models.CharField(max_length=8)
+    celular = models.CharField(max_length=9)
+    estado = models.BooleanField()
+
+class ComprobantePago(models.Model):
+
+    empleado_id = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_id')
+    cliente_id = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='cliente_id')
+    fecha = models.DateField()
+    estado = models.BooleanField()  # This field type is a guess.
+
+

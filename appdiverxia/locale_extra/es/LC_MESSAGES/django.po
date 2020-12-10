@@ -1,2 +1,0 @@
-msgid "Django administration"
-msgstr "Administración de Django Chucu"
