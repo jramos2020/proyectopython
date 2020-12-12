@@ -3,6 +3,15 @@ from django.contrib.auth.models import AbstractUser
 
 
 # MODELOS
+class MetodoPago(models.Model):
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    estado = models.BooleanField(default=1)
+
+    @classmethod
+    def listaMetodos(self):
+        return self.objects.all().order_by('nombre')
+
 
 # --------------------------------USUARIO------------------------------------------------
 class Usuario(AbstractUser):
@@ -138,6 +147,7 @@ class Cliente(models.Model):
 class Factura(models.Model):
     # id
     cliente = models.ForeignKey(Cliente, to_field='documento', on_delete=models.CASCADE)
+    metodopago = models.ForeignKey(MetodoPago, on_delete=models.CASCADE, null=True)
     fecha = models.DateField()
     sub_monto = models.DecimalField(max_digits=20, decimal_places=2)
     monto_general = models.DecimalField(max_digits=20, decimal_places=2)

@@ -83,7 +83,7 @@
                                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></button>
                                                 <!-- <span class="sr-only">Abrir menu</span> -->
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/appdiverxia/editarProducto/{{ fila.id}}">Editar/Ver producto</a>
+                                                    <a class="dropdown-item" href="{% url 'appdiverxia:editarProducto' p=fila.id %}">Editar/Ver producto</a>
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item" onclick="eliminarEntrada( {{fila.id}},'producto' )">Eliminar producto</a>
                                                     </div>

@@ -23,11 +23,8 @@
                                 <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <a class="dropdown-item" href="/appdiverxia/perfil/ver/{{ id_usuario }}">
                                         <i class="fa fa-user icon"></i> Perfil </a>
-                                        <!--
-                                    <a class="dropdown-item" href="/appdiverxia/notificaciones">
-                                        <i class="fa fa-bell icon"></i> Notificaciones </a> -->
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/appdiverxia/salir">
+                                    <a class="dropdown-item" href="{% url 'appdiverxia:salir' %}">
                                         <i class="fa fa-power-off icon"></i> Cerrar sesion </a>
                                 </div>
                             </li>

@@ -10,11 +10,11 @@ path('salir', views.Salir.as_view(), name='salir'),
 path('perfil/<str:modo>/<int:p>', views.Perfil.as_view(), name='perfil'),
 path('eliminar/<str:modo>/<int:p>', views.Eliminar.as_view(), name='eliminar'),
 
-path('listarProductos', views.ListarProductos.as_view(), name='listarProductos'),
-path('agregarProducto', views.AgregarProducto.as_view(), name='agregarProducto'),
-path('importarProductos', views.ImportarProductos.as_view(), name='importarProductos'),
-path('exportarProductos', views.ExportarProductos.as_view(), name='exportarProductos'),
-path('editarProducto/<int:p>', views.EditarProducto.as_view(), name='editarProducto'),
+path('productos', views.ListarProductos.as_view(), name='listarProductos'),
+path('productos/agregar', views.AgregarProducto.as_view(), name='agregarProducto'),
+path('productos/importar', views.ImportarProductos.as_view(), name='importarProductos'),
+path('productos/exportar', views.ExportarProductos.as_view(), name='exportarProductos'),
+path('productos/<int:p>/editar', views.EditarProducto.as_view(), name='editarProducto'),
 
 path('listarProveedores', views.ListarProveedores.as_view(), name='listarProveedores'),
 path('agregarProveedor', views.AgregarProveedor.as_view(), name='agregarProveedor'),
@@ -30,11 +30,11 @@ path('validarPedido/<int:p>',views.ValidarPedido.as_view(), name='validarPedido'
 path('generarPedido/<int:p>',views.GenerarPedido.as_view(), name='generarPedido'),
 path('generarPedidoPDF/<int:p>',views.GenerarPedidoPDF.as_view(), name='generarPedidoPDF'),
 
-path('listarClientes', views.ListarClientes.as_view(), name='listarClientes'),
-path('agregarCliente', views.AgregarCliente.as_view(), name='agregarCliente'),
-path('importarClientes', views.ImportarClientes.as_view(), name='importarClientes'),
-path('exportarClientes', views.ExportarClientes.as_view(), name='exportarClientes'),
-path('editarCliente/<int:p>', views.EditarCliente.as_view(), name='editarCliente'),
+path('cliente', views.ListarClientes.as_view(), name='listarClientes'),
+path('cliente/agregar', views.AgregarCliente.as_view(), name='agregarCliente'),
+path('cliente/importar', views.ImportarClientes.as_view(), name='importarClientes'),
+path('cliente/exportar', views.ExportarClientes.as_view(), name='exportarClientes'),
+path('cliente/<int:p>/editar', views.EditarCliente.as_view(), name='editarCliente'),
 
 path('emitirFactura', views.EmitirFactura.as_view(), name='emitirFactura'),
 path('detallesDeFactura', views.DetallesFactura.as_view(), name='detallesDeFactura'),
@@ -48,6 +48,11 @@ path('listarUsuarios', views.ListarUsuarios.as_view(), name='listarUsuarios'),
 
 path('importarBDD',views.ImportarBDD.as_view(), name='importarBDD'),
 path('descargarBDD', views.DescargarBDD.as_view(), name='descargarBDD'),
+
+path('metodospago', views.ListarMetodosPago.as_view(), name='metodospago'),
+path('metodospago/agregar', views.AgregarMetodosPago.as_view(), name='metodospago.agregar'),
+path('metodospago/<int:p>/editar/', views.EditarMetodosPago.as_view(), name='metodospago.editar'),
+
 path('configuracionGeneral', views.ConfiguracionGeneral.as_view(), name='configuracionGeneral'),
 
 path('verManualDeUsuario/<str:pagina>/',views.VerManualDeUsuario.as_view(), name='verManualDeUsuario')

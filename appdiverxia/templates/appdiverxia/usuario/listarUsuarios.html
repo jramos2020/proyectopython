@@ -92,7 +92,7 @@
                                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></button>
                                                 
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/appdiverxia/perfil/ver/{{ fila.id}}">Ver usuario</a>
+                                                    <a class="dropdown-item" href="{% url 'appdiverxia:perfil' modo='ver' p=fila.id%}">Ver usuario</a>
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item" onclick="eliminarEntrada( {{fila.id}},'usuario' )">Eliminar usuario</a>
                                                     </div>
