@@ -1,139 +1,258 @@
-from datetime import datetime
-from enum import Enum
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class Metodopago(models.Model):
-    nombre = models.CharField(max_length=50)
-    estado = models.BooleanField(default=1)
+# MODELOS
 
-    def __str__(self):
-        return "%s" % self.nombre
-
-
+# --------------------------------USUARIO------------------------------------------------
 class Usuario(AbstractUser):
-    address = models.CharField(max_length=100)
+    # id
+    username = models.CharField(max_length=80, unique=True)
+    password = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100, unique=True)
+    first_name = models.CharField(max_length=40)
+    last_name = models.CharField(max_length=60)
+    nivel = models.IntegerField(null=True, default=2)
+
+    @classmethod
+    def numeroRegistrados(self):
+        return int(self.objects.all().count())
+
+    @classmethod
+    def numeroUsuarios(self, tipo):
+        if tipo == 'administrador':
+            return int(self.objects.filter(is_superuser=True).count())
+        elif tipo == 'usuario':
+            return int(self.objects.filter(is_superuser=False).count())
 
 
+class Opciones(models.Model):
+    # id
+    moneda = models.CharField(max_length=20, null=True)
+    valor_igv = models.IntegerField(unique=True)
+    nombre_negocio = models.CharField(max_length=25, null=True)
+    mensaje_factura = models.TextField(null=True)
+
+
+# ---------------------------------------------------------------------------------------
+
+
+# -------------------------------PRODUCTO------------------------------------------------
+class Producto(models.Model):
+    # id
+    decisiones = [('1', 'Unidad')]
+    descripcion = models.CharField(max_length=40)
+    precio = models.DecimalField(max_digits=9, decimal_places=2)
+    disponible = models.IntegerField(null=True)
+    categoria = models.CharField(max_length=20, choices=decisiones, default='1')
+    tiene_igv = models.BooleanField(null=True)
+
+    @classmethod
+    def numeroRegistrados(self):
+        return int(self.objects.all().count())
+
+    @classmethod
+    def productosRegistrados(self):
+        objetos = self.objects.all().order_by('descripcion')
+        return objetos
+
+    @classmethod
+    def preciosProductos(self):
+        objetos = self.objects.all().order_by('id')
+        arreglo = []
+        etiqueta = True
+        extra = 1
+
+        for indice, objeto in enumerate(objetos):
+            arreglo.append([])
+            if etiqueta:
+                arreglo[indice].append(0)
+                arreglo[indice].append("------")
+                etiqueta = False
+                arreglo.append([])
+
+            arreglo[indice + extra].append(objeto.id)
+            precio_producto = objeto.precio
+            arreglo[indice + extra].append("%d" % (precio_producto))
+
+        return arreglo
+
+    @classmethod
+    def productosDisponibles(self):
+        objetos = self.objects.all().order_by('id')
+        arreglo = []
+        etiqueta = True
+        extra = 1
+
+        for indice, objeto in enumerate(objetos):
+            arreglo.append([])
+            if etiqueta:
+                arreglo[indice].append(0)
+                arreglo[indice].append("------")
+                etiqueta = False
+                arreglo.append([])
+
+            arreglo[indice + extra].append(objeto.id)
+            productos_disponibles = objeto.disponible
+            arreglo[indice + extra].append("%d" % (productos_disponibles))
+
+        return arreglo
+    # ---------------------------------------------------------------------------------------
+
+
+# ------------------------------------------CLIENTE--------------------------------------
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    direccion = models.CharField(max_length=150)
-    fecha = models.DateField()
-    dni = models.CharField(max_length=8)
-    celular = models.CharField(max_length=9)
-    correo = models.CharField(max_length=40, blank=True, null=True)
-    estado = models.BooleanField(default=1)
-    usuario = models.ForeignKey(Usuario, models.DO_NOTHING)
-
-    def __str__(self):
-        return "%s %s" % (self.nombre, self.apellido)
-
-
-class Empleado(models.Model):
-    EMPLEADO = 'EMPLEADO'
-    REPARTIDOR = 'REPARTIDOR'
-    YEAR_IN_SCHOOL_CHOICES = [
-        (EMPLEADO, 'EMPLEADO'),
-        (REPARTIDOR, 'REPARTIDOR'),
-    ]
-
+    # id
+    documento_tipo = models.CharField(max_length=3)
+    documento = models.CharField(max_length=11, unique=True)
     nombre = models.CharField(max_length=40)
     apellido = models.CharField(max_length=40)
-    tipo = models.CharField(max_length=255, choices=YEAR_IN_SCHOOL_CHOICES, default=EMPLEADO)
-    dni = models.CharField(max_length=8)
+    direccion = models.CharField(max_length=200)
+    nacimiento = models.DateField()
+    telefono = models.CharField(max_length=9)
+    correo = models.CharField(max_length=100)
+
+    @classmethod
+    def numeroRegistrados(self):
+        return int(self.objects.all().count())
+
+    @classmethod
+    def documentosRegistradas(self):
+        objetos = self.objects.all().order_by('nombre')
+        arreglo = []
+        for indice, objeto in enumerate(objetos):
+            arreglo.append([])
+            arreglo[indice].append(objeto.documento)
+            nombre_cliente = objeto.nombre + " " + objeto.apellido
+            arreglo[indice].append("%s. C.I: %s" % (nombre_cliente, self.formatearDocumento(objeto.documento)))
+
+        return arreglo
+
+    @staticmethod
+    def formatearDocumento(documento):
+        return format(int(documento), ',d')
+    # -----------------------------------------------------------------------------------------
+
+
+# -------------------------------------FACTURA---------------------------------------------
+class Factura(models.Model):
+    # id
+    cliente = models.ForeignKey(Cliente, to_field='documento', on_delete=models.CASCADE)
     fecha = models.DateField()
-    celular = models.CharField(max_length=9)
-    correo = models.CharField(max_length=40)
-    estado = models.BooleanField(default=1)  # This field type is a guess.
-    usuario = models.ForeignKey('Usuario', models.DO_NOTHING)
-    direccion = models.CharField(max_length=150)
+    sub_monto = models.DecimalField(max_digits=20, decimal_places=2)
+    monto_general = models.DecimalField(max_digits=20, decimal_places=2)
+    igv = models.ForeignKey(Opciones, to_field='valor_igv', on_delete=models.CASCADE)
 
-    def __str__(self):
-        return "%s %s (%s)" % (self.nombre, self.apellido, self.dni)
+    @classmethod
+    def numeroRegistrados(self):
+        return int(self.objects.all().count())
+
+    @classmethod
+    def ingresoTotal(self):
+        facturas = self.objects.all()
+        total = 0
+
+        for factura in facturas:
+            total += factura.monto_general
+
+        return total
 
 
+# -----------------------------------------------------------------------------------------
+
+
+# -------------------------------------DETALLES DE FACTURA---------------------------------
+class DetalleFactura(models.Model):
+    # id
+    id_factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+    sub_total = models.DecimalField(max_digits=20, decimal_places=2)
+    total = models.DecimalField(max_digits=20, decimal_places=2)
+
+    @classmethod
+    def productosVendidos(self):
+        vendidos = self.objects.all()
+        totalVendidos = 0
+        for producto in vendidos:
+            totalVendidos += producto.cantidad
+
+        return totalVendidos
+
+    @classmethod
+    def ultimasVentas(self):
+        objetos = self.objects.all().order_by('-id')[:10]
+
+        return objetos
+
+
+# ---------------------------------------------------------------------------------------
+
+
+# ------------------------------------------PROVEEDOR-----------------------------------
 class Proveedor(models.Model):
+    # id
+    documento_tipo = models.CharField(max_length=3)
+    documento = models.CharField(max_length=11, unique=True)
     nombre = models.CharField(max_length=40)
-    celular = models.CharField(max_length=9)
-    correo = models.CharField(max_length=40)
-    ruc = models.CharField(max_length=11)
-    direccion = models.CharField(max_length=150)
-    estado = models.BooleanField(default=1)  # This field type is a guess.
+    apellido = models.CharField(max_length=40)
+    direccion = models.CharField(max_length=200)
+    nacimiento = models.DateField()
+    telefono = models.CharField(max_length=20)
+    correo = models.CharField(max_length=100)
 
-    def __str__(self):
-        return "%s (%s)" % (self.nombre, self.ruc)
+    @classmethod
+    def documentosRegistradas(self):
+        objetos = self.objects.all().order_by('nombre')
+        arreglo = []
+        for indice, objeto in enumerate(objetos):
+            arreglo.append([])
+            arreglo[indice].append(objeto.documento)
+            nombre_cliente = objeto.nombre + " " + objeto.apellido
+            arreglo[indice].append("%s. C.I: %s" % (nombre_cliente, self.formatearDocumento(objeto.documento)))
 
+        return arreglo
 
-class Producto(models.Model):
-    codigo = models.CharField(max_length=50)
-    nombre = models.CharField(max_length=50)
-    precio = models.DecimalField(max_digits=7, decimal_places=2)
-    stock = models.IntegerField(blank=True, null=True)
-    estado = models.BooleanField(default=1)  # This field type is a guess.
-
-    def __str__(self):
-        return "%s" % self.nombre
-
-
-
-
-class Ticket(models.Model):
-    cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
-    empleado = models.ForeignKey(Empleado, models.DO_NOTHING)
-    fecha = models.DateTimeField(default=datetime.now())
-    estado = models.BooleanField(default=1)
-    detalle = models.ManyToManyField(Producto,through='TicketDetalle')
+    @staticmethod
+    def formatearDocumento(documento):
+        return format(int(documento), ',d')
+    # ---------------------------------------------------------------------------------------
 
 
-class TicketDetalle(models.Model):
-    ticket = models.ForeignKey('Ticket',  on_delete=models.CASCADE)
-    producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
-    cantidad = models.IntegerField(default=1)
-    class Meta:
-        unique_together = (('ticket', 'producto'),)
+# ----------------------------------------PEDIDO-----------------------------------------
+class Pedido(models.Model):
+    # id
+    proveedor = models.ForeignKey(Proveedor, to_field='documento', on_delete=models.CASCADE)
+    fecha = models.DateField()
+    sub_monto = models.DecimalField(max_digits=20, decimal_places=2)
+    monto_general = models.DecimalField(max_digits=20, decimal_places=2)
+    igv = models.ForeignKey(Opciones, to_field='valor_igv', on_delete=models.CASCADE)
+    presente = models.BooleanField(null=True)
+
+    @classmethod
+    def recibido(self, pedido):
+        return self.objects.get(id=pedido).presente
 
 
-class Comprobantepago(models.Model):
-    ticket = models.ForeignKey('Ticket', models.DO_NOTHING)
-    empleado = models.ForeignKey('Empleado', models.DO_NOTHING)
-    tipo = models.CharField(max_length=8)
-    fecha = models.DateTimeField()
-    estado = models.BooleanField(default=1)  # This field type is a guess.
-    pago = models.ForeignKey('Metodopago', models.DO_NOTHING)
+# ---------------------------------------------------------------------------------------
 
 
-class Entrada(models.Model):
-    proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING)
-    empleado = models.ForeignKey(Empleado, models.DO_NOTHING)
-    fecha = models.DateTimeField()
-    estado = models.BooleanField(default=1)  # This field type is a guess.
-
-
-class Detalleentrada(models.Model):
-    entrada = models.OneToOneField('Entrada', models.DO_NOTHING)
-    producto = models.ForeignKey('Producto', models.DO_NOTHING)
+# -------------------------------------DETALLES DE PEDIDO-------------------------------
+class DetallePedido(models.Model):
+    # id
+    id_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
-
-    class Meta:
-        unique_together = (('entrada', 'producto'),)
-
-
-class Salida(models.Model):
-    direccion = models.CharField(max_length=150)
-    empleado = models.ForeignKey(Empleado, models.DO_NOTHING)
-    fecha = models.DateTimeField()
-    estado = models.BooleanField(default=1)  # This field type is a guess.
+    sub_total = models.DecimalField(max_digits=20, decimal_places=2)
+    total = models.DecimalField(max_digits=20, decimal_places=2)
 
 
-class Detallesalida(models.Model):
-    salida = models.OneToOneField('Salida', models.DO_NOTHING)
-    producto = models.ForeignKey('Producto', models.DO_NOTHING)
-    cantidad = models.IntegerField()
+# ---------------------------------------------------------------------------------------
 
-    class Meta:
-        unique_together = (('salida', 'producto'),)
 
-# Create your models here.
+# ------------------------------------NOTIFICACIONES------------------------------------
+class Notificaciones(models.Model):
+    # id
+    autor = models.ForeignKey(Usuario, to_field='username', on_delete=models.CASCADE)
+    mensaje = models.TextField()
+# ---------------------------------------------------------------------------------------

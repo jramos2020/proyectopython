@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class AppdiverxiaConfig(AppConfig):
+class AppDiverxiaConfig(AppConfig):
     name = 'appdiverxia'

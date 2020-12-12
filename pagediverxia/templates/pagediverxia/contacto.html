@@ -1,0 +1,325 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+{% include "pagediverxia/comun/head.html" %}
+
+<body>
+
+    <!-- Start Main Top -->
+    <div class="main-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="text-slid-box">
+                        <div id="offer-box" class="carouselTicker">
+                            <ul class="offer-box">
+                                <li>
+                                    <i class="fab fa-opencart"></i> descuento 10%! compra ahora
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> 50% - 80% de descuento en moda
+                                </li>
+                                
+                                <li>
+                                    <i class="fab fa-opencart"></i> descuento 50%! compra ahora
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> descuento 10%! hombres compra ahora
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> 50% - 80% descuento en moda
+                                </li>
+                                
+                                <li>
+                                    <i class="fab fa-opencart"></i> descuento 50%! compra hoy
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="custom-select-box">
+                        <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+						<option>soles</option>
+						<option>dolares</option>
+						
+					</select>
+                    </div>
+                    <div class="right-phone-box">
+                        <p>Contáctanos: <a href="#"> 937389730</a></p>
+                    </div>
+                    <div class="our-link">
+                        <ul>
+                            <li><a href="/appdiverxia/login">Iniciar Sesion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Top -->
+
+    <!-- Start Main Top -->
+    <header class="main-header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                    <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static "pagediverxia/images/logo.png" %}" class="logo" alt=""></a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item "><a class="nav-link" href="{% url 'index' %}">INICIO</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">NOSOTROS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'productos' %}">PRODUCTO</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'contacto' %}">CONTACTO</a></li>
+                    </ul>
+                </div>    
+            </div>
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start Contact Us  -->
+    <div class="contact-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <div class="contact-info-left">
+                        <h2>Atención al cliente</h2>
+                        <p>Diverxia se compromete en proporcionar el más alto nivel de servicio al cliente.
+                            Si no encontraste la información que buscabas, por favor contáctanos.
+                            Un miembro del equipo del Centro de atencion al cliente se comunicará contigo</p>
+                        <ul>
+                            <li>
+                                <p><i class="fas fa-map-marker-alt"></i>Direccion: Plaza Norte <br>stand 102,<br> Piso 2 </p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-phone-square"></i>Celular: <a href="#"> 937389730</a></p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-envelope"></i>Correo: <a href="mailto:ventasdivexia@divexia.com">ventasdivexia@divexia.com</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                    <div class="contact-form-right">
+                        <h2>Contáctanos</h2>
+                        <h3>Escríbenos tus datos para contactarnos contigo a la brevedad. </h3>
+                        <form action="{% url 'contacto.enviar' %}" method="post" {% csrf_token %}>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="name" name="nombre" placeholder="nombre" required data-error="por favor ingrese su nombre">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="correo" id="email" class="form-control" name="correo" required data-error="por favor ingrese su correo">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="phone" name="celular" placeholder="Celular" required data-error="por favor ingrese su N° Celular">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="message" name="mensaje" placeholder="mensaje" rows="4" ></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                    <div class="submit-button text-center">
+                                        <input class="btn hvr-hover" id="submit" type="submit" value="Enviar Mensaje">
+                                        <div id="msgSubmitt" class="h3 text-center hidden"></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Cart -->
+
+    <!-- Start Instagram Feed  -->
+    <div class="instagram-box">
+        <div class="main-instagram owl-carousel owl-theme">
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-01.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-02.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-03.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-04.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-05.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-06.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-07.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-08.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-09.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static "pagediverxia/images/instagram-img-05.jpg" %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Instagram Feed  -->
+
+    
+    <!-- Start Footer  -->
+    <footer>
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>DIVERXIA</h4>
+                            <p>¡Bienvenidos a la comunidad oficial de Diverxia!
+                             donde encontraras las mejores marcas en ropa y accesorios
+                            </p>
+                            <p>Ropa, Accesorios, Zapatillas, Camisas, Blusas, Pantalones,
+                                Casacas, Gorras, Mochilas, Polos.
+                            </p>
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>Informacion</h4>
+                            <p>¡Compra por WhatsApp! 📱💬 Ahora estamos más cerca de ti 🙂
+
+                                *comunícate con tu asesor especializado quien te orientará en tu compra
+                                 y hará que te llegue el pedido aún más rápido 😉👇</p>
+                            <p><i class="fab fa-whatsapp fa-2x"></i>  937389730<a href="937389730"></a></p>
+                            
+                            <p>Horario: 09:00 - 20:00</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact">
+                            <h4>Contacto</h4>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-map-marker-alt"></i>Direccion: Plaza Norte  <br>stand 102<br> piso 2 </p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-phone-square"></i>Celular: <a href="#"> 937389730</a></p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-envelope"></i>Correo: <a href="mailto:contactinfo@gmail.com">ventasdivexia@divexia.com</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer  -->
+
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+        <p class="footer-company">Derechos reservados &copy; 2020 <a href="#">Diverxia</a> Diseñado por :
+            <a href="#">jramos</a></p>
+    </div>
+    <!-- End copyright  -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+{% include "pagediverxia/comun/scripts.html" %}
+</body>
+
+</html>

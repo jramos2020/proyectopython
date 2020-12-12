@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+{% include "pagediverxia/comun/head.html" %}
+
+<body>
+
+    <!-- Start Main Top -->
+    <div class="main-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="text-slid-box">
+                        <div id="offer-box" class="carouselTicker">
+                            <ul class="offer-box">
+                                <li>
+                                    <i class="fab fa-opencart"></i> descuento 10%! compra ahora
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> 50% - 80% de descuento en moda
+                                </li>
+                                
+                                <li>
+                                    <i class="fab fa-opencart"></i> descuento 50%! compra ahora
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> descuento 10%! hombres compra ahora
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> 50% - 80% descuento en moda
+                                </li>
+                                
+                                <li>
+                                    <i class="fab fa-opencart"></i> descuento 50%! compra hoy
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="custom-select-box">
+                        <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+						<option>soles</option>
+						<option>dolares</option>
+						
+					</select>
+                    </div>
+                    <div class="right-phone-box">
+                        <p>Contáctanos: <a href="#"> 937389730</a></p>
+                    </div>
+                    <div class="our-link">
+                        <ul>
+                            <li><a href="/appdiverxia/login">Iniciar Sesion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Top -->
+
+    <!-- Start Main Top -->
+    <header class="main-header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                    <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static "pagediverxia/images/logo.png" %}" class="logo" alt=""></a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item "><a class="nav-link" href="{% url 'index' %}">INICIO</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'nosotros' %}">NOSOTROS</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'productos' %}">PRODUCTO</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'contacto' %}">CONTACTO</a></li>
+                    </ul>
+                </div>
+               
+            </div>
+            
+        </nav>
+        <!-- End Navigation -->
+    </header>
+
+    
+    <!-- End Top Search -->
+
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- End All Title Box -->
+
+    <!-- Start Shop Page  -->
+    <div class="shop-box-inner">
+        <div class="container">
+
+            <div class="product-categori">
+                <div class="filter-sidebar-left">
+                    <div class="title-left">
+                        <h3>Categoria</h3>
+                    </div>
+                  </div>
+            </div>
+            
+
+            
+                <li class="dropdown">
+                    
+                    <div class="category_list">
+                        <a href="#" class="category_item ct_item-active" category="all">Todo</a>
+                    </div>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Ropa</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <div class="category_list">
+                            <a href="#" class="category_item" category="camisas">Camisas</a>
+                            <a href="#" class="category_item" category="pantalones">Pantalones</a>
+                            <a href="#" class="category_item" category="poleras">Poleras</a>
+                        </div>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Accesorios</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <div class="category_list">
+                            <a href="#" class="category_item" category="zapatos">Zapatos</a>
+                            <a href="#" class="category_item" category="carteras">Carteras</a>
+                        </div>
+
+                    </ul>
+                </li>
+                <div class="store-wrapper">
+                    <div class="category_list">
+                        
+                        <a href="#" class="category_item" category=""></a>
+                        <a href="#" class="category_item" category=""></a>
+                        <a href="#" class="category_item" category=""></a>
+                        <a href="#" class="category_item" category=""></a>
+                        <a href="#" class="category_item" category=""></a>
+                    </div>
+                    <section class="products-list">
+                        <div class="product-item" category="camisas" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/camisa1.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                        <div class="product-item" category="camisas" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/camisa2.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                        <div class="product-item" category="pantalones" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/pantalon11.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                        <div class="product-item" category="poleras" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/poleras1.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                        <div class="product-item" category="zapatos" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/zapatos2.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                        <div class="product-item" category="carteras" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/cartera1.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                        <div class="product-item" category="carteras" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/cartera2.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                        <div class="product-item" category="pantalones" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/pantalon2.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                        <div class="product-item" category="pantalones" style="transform: scale(1);">
+                            <img src="{% static "pagediverxia/images/pantalon4.jpg" %}" alt="">
+                            <a href="#"></a>
+                        </div>
+                    </section>
+                </div>
+                 
+        </div>
+    </div>
+    <!-- End Shop Page -->
+
+    <!-- Start Instagram Feed  -->
+    
+    <!-- End Instagram Feed  -->
+
+
+    <!-- Start Footer  -->
+    <footer>
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>DIVERXIA</h4>
+                            <p>¡Bienvenidos a la comunidad oficial de Diverxia!
+                             donde encontraras las mejores marcas en ropa y accesorios
+                            </p>
+                            <p>Ropa, Accesorios, Zapatillas, Camisas, Blusas, Pantalones,
+                                Casacas, Gorras, Mochilas, Polos.
+                            </p>
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>Informacion</h4>
+                            <p>¡Compra por WhatsApp! 📱💬 Ahora estamos más cerca de ti 🙂
+
+                                *comunícate con tu asesor especializado quien te orientará en tu compra
+                                 y hará que te llegue el pedido aún más rápido 😉👇</p>
+                            <p><i class="fab fa-whatsapp fa-2x"></i>  937389730<a href="937389730"></a></p>
+                            
+                            <p>Horario: 09:00 - 20:00</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact">
+                            <h4>Contacto</h4>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-map-marker-alt"></i>Direccion: Plaza Norte  <br>stand 102<br> piso 2 </p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-phone-square"></i>Celular: <a href="#"> 937389730</a></p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-envelope"></i>Correo: <a href="mailto:contactinfo@gmail.com">ventasdivexia@divexia.com</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer  -->
+
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+        <p class="footer-company">Derechos reservados &copy; 2020 <a href="#">Diverxia</a> Diseñado por :
+            <a href="#">jramos</a></p>
+    </div>
+    <!-- End copyright  -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+
+{% include "pagediverxia/comun/scripts.html" %}
+</body>
+
+</html>
