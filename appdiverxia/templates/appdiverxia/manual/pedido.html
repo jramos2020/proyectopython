@@ -82,7 +82,7 @@
                         <h3>¿Cómo ver los pedidos?</h3><br>
                         <img src="{% static 'appdiverxia/assets/manual/pedido/listar.png' %}" alt="telefono" style="width:100%;height:100%;">
                         <br>
-                        <p>La interfaz para ver los pedidos funciona de la misma forma que las de <a href="/appdiverxia/verManualDeUsuario/producto">productos</a> y <a href="/appdiverxia/verManualDeUsuario/proveedor">proveedores</a>.</p>
+                        <p>La interfaz para ver los pedidos funciona de la misma forma que las de <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='producto'%}">productos</a> y <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='proveedor' %}">proveedores</a>.</p>
                         <p>Por lo tanto, vea alguno de esos dos modulos para mas informacion</p>
 
                         <br>

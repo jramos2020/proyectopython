@@ -6,9 +6,9 @@
 	    <div class="title-block">
           <h3 class="title">Ver Perfil de '{{perfil.username}}'</h3>
           <p class="title-description">Observe los datos actuales de este perfil o use los otros modulos de abajo</p> 
-          <a href="/appdiverxia/perfil/editar/{{ perfil.id }}" class="btn btn-lg btn-info"> <em class="fa fa-pencil"></em> Editar perfil </a>
+          <a href="{% url 'appdiverxia:perfil' modo='editar'  p=perfil.id %}" class="btn btn-lg btn-info"> <em class="fa fa-pencil"></em> Editar perfil </a>
 
-          <a href="/appdiverxia/perfil/clave/{{ perfil.id }}" class="btn btn-lg btn-info"> <em class="fa fa-pencil"></em> Cambiar clave </a>
+          <a href="{% url 'appdiverxia:perfil' modo='clave' p=perfil.id %}" class="btn btn-lg btn-info"> <em class="fa fa-pencil"></em> Cambiar clave </a>
         </div>
 
 <section class="section">

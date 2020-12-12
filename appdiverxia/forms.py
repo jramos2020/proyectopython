@@ -1,5 +1,5 @@
 from django import forms
-from .models import Producto, Cliente, Proveedor, Usuario, Opciones
+from .models import Producto, Cliente, Proveedor, Usuario, Opciones, MetodoPago
 
 from django.forms import ModelChoiceField
 
@@ -7,6 +7,11 @@ from django.forms import ModelChoiceField
 class MisProductos(ModelChoiceField):
     def label_from_instance(self, obj):
         return "%s" % obj.descripcion
+
+
+class MisMetodosPagos(ModelChoiceField):
+    def label_from_instance(self, obj):
+        return "%s" % obj.nombre
 
 
 class MisPrecios(ModelChoiceField):
@@ -29,6 +34,29 @@ class LoginFormulario(forms.Form):
                                                                                      'class': 'form-control underlined',
                                                                                      'type': 'password',
                                                                                      'id': 'password'}))
+
+
+class MetodoPagoFormulario(forms.ModelForm):
+    descripcion = forms.CharField(label="Descripción",
+                                  required=False,
+                                  widget=forms.TextInput(attrs={'placeholder': 'Ingrese una Descripción',
+                                                                'class': 'form-control underlined', 'type': 'textarea',
+                                                                'id': 'descripcion'}))
+
+    class Meta:
+        model = MetodoPago
+        fields = ['nombre', 'descripcion', 'estado']
+        labels = {
+            'nombre': 'Nombre',
+            'descripcion': 'Descripcion (Opcional)'
+        }
+        widgets = {
+            'nombre': forms.TextInput(attrs={'placeholder': 'Nombre',
+                                             'id': 'nombre', 'class': 'form-control'}),
+            'descripcion': forms.TextInput(attrs={'placeholder': 'Descripción', 'type': 'textarea',
+                                                  'id': 'descripcion', 'class': 'form-control'}),
+            'estado': forms.CheckboxInput(attrs={'class': 'checkboxs rounded', 'id': 'estado'})
+        }
 
 
 class ProductoFormulario(forms.ModelForm):
@@ -113,6 +141,14 @@ class ClienteFormulario(forms.ModelForm):
                             )
     )
 
+    documento = forms.CharField(
+        label="Documento",
+        max_length=11,
+        min_length=8,
+        widget=forms.TextInput( attrs={'placeholder': 'Inserte el documento de identidad del cliente',
+                                                'id': 'documento', 'class': 'form-control'}
+                            )
+    )
     class Meta:
         model = Cliente
         fields = ['tipoDocumento', 'documento', 'nombre', 'apellido', 'direccion', 'nacimiento', 'telefono', 'correo',
@@ -129,7 +165,7 @@ class ClienteFormulario(forms.ModelForm):
         }
         widgets = {
             'documento': forms.TextInput(attrs={'placeholder': 'Inserte el documento de identidad del cliente',
-                                             'id': 'documento', 'class': 'form-control'}),
+                                                'id': 'documento', 'class': 'form-control'}),
             'nombre': forms.TextInput(attrs={'placeholder': 'Inserte el primer o primeros nombres del cliente',
                                              'id': 'nombre', 'class': 'form-control'}),
             'apellido': forms.TextInput(
@@ -146,6 +182,7 @@ class ClienteFormulario(forms.ModelForm):
 
 
 class EmitirFacturaFormulario(forms.Form):
+
     def __init__(self, *args, **kwargs):
         elecciones = kwargs.pop('documentos')
         super(EmitirFacturaFormulario, self).__init__(*args, **kwargs)
@@ -160,7 +197,9 @@ class EmitirFacturaFormulario(forms.Form):
     productos = forms.IntegerField(label="Numero de productos",
                                    widget=forms.NumberInput(attrs={'placeholder': 'Numero de productos a facturar',
                                                                    'id': 'productos', 'class': 'form-control'}))
-
+    metodospagos = MetodoPago.listaMetodos()
+    metodopago = MisMetodosPagos(queryset=metodospagos, widget=forms.Select(
+            attrs={'placeholder': 'Seleccione un metodo de pago', 'class': 'form-control select-group'}))
 
 class DetallesFacturaFormulario(forms.Form):
     productos = Producto.productosRegistrados()
@@ -207,41 +246,10 @@ class EmitirPedidoFormulario(forms.Form):
                                    widget=forms.NumberInput(attrs={'placeholder': 'Numero de productos a comprar',
                                                                    'id': 'productos', 'class': 'form-control'}))
 
-#"""
+
 class DetallesPedidoFormulario(forms.Form):
-    productos = Producto.productosRegistrados()
-    precios = Producto.preciosProductos()
-
-    descripcion = MisProductos(queryset=productos, widget=forms.Select(
-        attrs={'placeholder': 'El producto a debitar', 'class': 'form-control',
-               'onchange': 'establecerPrecio(this)'}))
-
-    vista_precio = MisPrecios(required=False, queryset=productos, label="Precio del producto",
-                              widget=forms.Select(
-                                  attrs={'placeholder': 'El precio del producto', 'class': 'form-control',
-                                         'disabled': 'true'}))
-
-    cantidad = forms.IntegerField(label="Cantidad", min_value=0, widget=forms.NumberInput(
-        attrs={'placeholder': 'Introduzca la cantidad del producto', 'class': 'form-control', 'value': '0',
-               'onchange': 'calculoPrecio(this)'}))
-
-    subtotal = forms.DecimalField(required=False, label="Sub-total", min_value=0, widget=forms.NumberInput(
-        attrs={'placeholder': 'Monto sub-total', 'class': 'form-control', 'disabled': 'true', 'value': '0'}))
-
-    valor_subtotal = forms.DecimalField(min_value=0, widget=forms.NumberInput(
-        attrs={'placeholder': 'Monto sub-total', 'class': 'form-control', 'hidden': 'true', 'value': '0'}))
-
-
-"""
-from django.forms.utils import ErrorDict, ErrorList, pretty_name  # NOQA
-class DetallesPedidoFormulario(forms.Form):
-    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
-                 initial=None, error_class=ErrorList, label_suffix=None,
-                 empty_permitted=False, field_order=None, use_required_attribute=None, renderer=None):
-        super(DetallesPedidoFormulario, self).__init__(
-            data, files, auto_id, prefix,
-            initial, error_class, label_suffix,
-            empty_permitted, field_order, use_required_attribute, renderer)
+    def __init__(self, *args, **kwargs):
+        super(DetallesPedidoFormulario, self).__init__(*args, **kwargs)
         # body of the constructor
         self.productos = Producto.productosRegistrados()
         self.precios = Producto.preciosProductos()
@@ -264,7 +272,6 @@ class DetallesPedidoFormulario(forms.Form):
 
         self.valor_subtotal = forms.DecimalField(min_value=0, widget=forms.NumberInput(
             attrs={'placeholder': 'Monto sub-total', 'class': 'form-control', 'hidden': 'true', 'value': '0'}))
-#"""
 
 
 class ProveedorFormulario(forms.ModelForm):
@@ -272,9 +279,18 @@ class ProveedorFormulario(forms.ModelForm):
 
     tipoDocumento = forms.CharField(
         label="Tipo de documento",
-        max_length=2,
+        max_length=1,
         widget=forms.Select(choices=tipoC, attrs={'placeholder': 'Tipo de documento',
                                                   'id': 'tipoDocumento', 'class': 'form-control'}
+                            )
+    )
+
+    documento = forms.CharField(
+        label="Documento",
+        max_length=11,
+        min_length=8,
+        widget=forms.TextInput( attrs={'placeholder': 'Inserte el documento de identidad del proveedor',
+                                                'id': 'documento', 'class': 'form-control'}
                             )
     )
 
@@ -292,7 +308,7 @@ class ProveedorFormulario(forms.ModelForm):
         }
         widgets = {
             'documento': forms.TextInput(attrs={'placeholder': 'Inserte el documento de identidad del proveedor',
-                                             'id': 'documento', 'class': 'form-control'}),
+                                                'id': 'documento', 'class': 'form-control'}),
             'nombre': forms.TextInput(attrs={'placeholder': 'Inserte el primer o primeros nombres del proveedor',
                                              'id': 'nombre', 'class': 'form-control'}),
             'apellido': forms.TextInput(

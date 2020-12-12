@@ -23,7 +23,7 @@
          {% endfor %}
         {%endif%}
 
-        <a href="/appdiverxia/listarPedidos" class="btn btn-info btn-lg">
+        <a href="{% url 'appdiverxia:listarPedidos' %}" class="btn btn-info btn-lg">
             <em class="fa fa-angle-left"></em>
         Volver a pedidos
         </a>
@@ -153,12 +153,12 @@
                                 </div>
 
                                 {% if recibido == False %}
-                                <a href="/appdiverxia/validarPedido/{{pedido.id}}" class="btn btn-secondary btn-lg"><em class="fa fa-check"></em>Marcar como recibido</a>
+                                <a href="{% url 'appdiverxia:validarPedido' p=pedido.id %}" class="btn btn-secondary btn-lg"><em class="fa fa-check"></em>Marcar como recibido</a>
                                 {% else %}
                                 <a href="#" class="btn btn-secondary btn-lg" disabled><em class="fa fa-check"></em>El pedido ya ha sido recibido</a>
                                 {% endif %}
 
-                                <a href="/appdiverxia/generarPedidoPDF/{{ pedido.id}}" class="btn btn-secondary btn-lg"><em class="fa fa-print"></em>Generar PDF</a>
+                                <a href="{% url 'appdiverxia:generarPedidoPDF' p=pedido.id %}" class="btn btn-secondary btn-lg"><em class="fa fa-print"></em>Generar PDF</a>
 
                             </div>
 

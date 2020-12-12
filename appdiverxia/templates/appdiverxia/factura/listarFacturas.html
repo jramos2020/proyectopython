@@ -37,6 +37,7 @@
                                                             <th>Sub-Total</th>
                                                             <th>Total</th>
                                                             <th>IGV</th>
+                                                            <th>Metodo Pago</th>
                                                             <th>Opciones</th>
                                                         </tr>
                                                     </thead>
@@ -49,6 +50,7 @@
                                                             <td>{{ fila.sub_monto }}</td>
                                                             <td>{{ fila.monto_general }}</td>
                                                             <td>{{ fila.igv.valor_igv }}</td>
+                                                            <td>{{ fila.metodopago.nombre }}</td>
                                                             <td>
 
                                                 <div class="btn-group">
@@ -56,11 +58,11 @@
                                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></button>
                                                 
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/appdiverxia/verFactura/{{ fila.id}}">Editar/Ver Factura</a>
+                                                    <a class="dropdown-item" href="{% url 'appdiverxia:verFactura' p=fila.id %}">Editar/Ver Factura</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="/appdiverxia/generarFactura/{{ fila.id}}">Generar reporte (CSV)</a>
+                                                    <a class="dropdown-item" href="{% url 'appdiverxia:generarFactura' p=fila.id %}">Generar reporte (CSV)</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="/appdiverxia/generarFacturaPDF/{{ fila.id}}">Generar reporte (PDF)</a>
+                                                    <a class="dropdown-item" href="{% url 'appdiverxia:generarFacturaPDF' p=fila.id %}">Generar reporte (PDF)</a>
                                                     </div>
                                                      </div>
                                                             </td>

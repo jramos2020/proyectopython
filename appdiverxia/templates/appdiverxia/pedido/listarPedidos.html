@@ -63,11 +63,11 @@
                                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></button>
 
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/appdiverxia/verPedido/{{ fila.id}}">Ver pedido</a>
+                                                    <a class="dropdown-item" href="{% url 'appdiverxia:verPedido' p=fila.id %}">Ver pedido</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="/appdiverxia/generarPedido/{{ fila.id}}">Generar reporte(CSV)</a>
+                                                    <a class="dropdown-item" href="{% url 'appdiverxia:generarPedido' p=fila.id %}">Generar reporte(CSV)</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="/appdiverxia/generarPedidoPDF/{{ fila.id}}">Generar reporte(PDF)</a>
+                                                    <a class="dropdown-item" href="{% url 'appdiverxia:generarPedidoPDF' p=fila.id %}">Generar reporte(PDF)</a>
                                                     </div>
                                                      </div>
                                                             </td>

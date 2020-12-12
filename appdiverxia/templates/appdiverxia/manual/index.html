@@ -65,20 +65,20 @@
                         <p>Este sistema de appdiverxia permite el manejo, facturacion y reeabastecimiento digital del appdiverxia.No obstante, para usarlo por primera vez de manera exitosa se necesitan de ciertos pasos.</p>
                         <br>
                         <p><b>1)Añadir productos:</b>
-                        Primero se necesitan <a href="/appdiverxia/verManualDeUsuario/producto">agregar los productos</a> con los que cuenta el negocio o empresa.
+                        Primero se necesitan <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='producto' %}">agregar los productos</a> con los que cuenta el negocio o empresa.
                         </p>
                         <br>
                         <p><b>2)Agregar proveedor:</b>
-                        Luego se procede a <a href="/appdiverxia/verManualDeUsuario/proveedor">añadir uno o mas proveedores</a>, ya que son ellos los que aumentan el stock de los productos.</p>
+                        Luego se procede a <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='proveedor' %}">añadir uno o mas proveedores</a>, ya que son ellos los que aumentan el stock de los productos.</p>
                         <br>
                         <p><b>3)Ingresar un pedido:</b>
-                        Despues se debe <a href="/appdiverxia/verManualDeUsuario/pedido">hacer un pedido</a> a uno de los proveedores recientemente creados, de esa forma, obtendremos existencias nuevas en los productos.</p>
+                        Despues se debe <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='pedido' %}">hacer un pedido</a> a uno de los proveedores recientemente creados, de esa forma, obtendremos existencias nuevas en los productos.</p>
                         <br>
                         <p><b>4)Agregar cliente:</b>
-                        Ahora se tiene que <a href="/appdiverxia/verManualDeUsuario/clientes">agregar un cliente nuevo</a> al sistema, el cliente sera el que compre nuestras existencias y se le facturara la compra.</p>
+                        Ahora se tiene que <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='clientes' %}">agregar un cliente nuevo</a> al sistema, el cliente sera el que compre nuestras existencias y se le facturara la compra.</p>
                         <br>
                         <p><b>5)Crear factura:</b>
-                        Por ultimo solo se necesita <a href="/appdiverxia/verManualDeUsuario/factura">crear una factura</a>, para eso elegimos al cliente, el numero de productos que deseamos facturar y la cantidad de cada uno.</p>
+                        Por ultimo solo se necesita <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='factura' %}">crear una factura</a>, para eso elegimos al cliente, el numero de productos que deseamos facturar y la cantidad de cada uno.</p>
 
                         <p><b>Eso es todo!</b></p>
 

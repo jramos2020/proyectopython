@@ -10,7 +10,7 @@
     <div class="row">
 
         <div class="col-md-12">
-        <a href="/appdiverxia/listarFacturas" class="btn btn-info btn-lg">
+        <a href="{% url 'appdiverxia:listarFacturas' %}" class="btn btn-info btn-lg">
             <em class="fa fa-angle-left"></em>
         Volver a facturas
         </a>
@@ -81,6 +81,19 @@
                                     </div>                                  
                                 </div>
                         </div>
+						<div class="col-xl-4">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <div class="header-block">
+                                            <p class="title">Metodo de pago</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-block">
+                                        <strong>{{factura.metodopago.nombre}}</strong>
+                                        <p>{{factura.metodopago.descripcion}}</p>
+                                    </div>
+                                </div>
+                        </div>
 
 
                             <div class="col-md-12">
@@ -118,7 +131,7 @@
                                         </section>
                                     </div>
                                 </div>
-                                <a href="/appdiverxia/generarFacturaPDF/{{ factura.id}}" class="btn btn-secondary btn-lg"><em class="fa fa-print"></em>Generar PDF</a>
+                                <a href="{% url 'appdiverxia:generarFacturaPDF' p=factura.id%}" class="btn btn-secondary btn-lg"><em class="fa fa-print"></em>Generar PDF</a>
                             </div>
 
 	</div>

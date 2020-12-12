@@ -18,7 +18,7 @@
                 <div id="poo-1" class="tabcontent">
                     <article>
                         <h3>¿Como ingresar una factura?</h3><br>
-                        <p>Ingresar una factura implica el mismo procedimiento que se hace al <a href="/appdiverxia/verManualDeUsuario/pedido">ingresar un pedido</a>.</p>
+                        <p>Ingresar una factura implica el mismo procedimiento que se hace al <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='pedido' %}">ingresar un pedido</a>.</p>
                         <br>
                         <p>Sin embargo, debido a ciertas diferencias, se explicara el proceso nuevamente</p>
 
@@ -97,7 +97,7 @@
                         <h3>¿Cómo ver las facturas?</h3><br>
                         <img src="{% static 'appdiverxia/assets/manual/factura/listar.png' %}" alt="telefono" style="width:100%;height:100%;">
                         <br>
-                        <p>La interfaz para ver las facturas funciona de la misma forma que las de <a href="/appdiverxia/verManualDeUsuario/producto">productos</a> y <a href="/appdiverxia/verManualDeUsuario/proveedor">proveedores</a>.</p>
+                        <p>La interfaz para ver las facturas funciona de la misma forma que las de <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='producto' %}">productos</a> y <a href="{% url 'appdiverxia:verManualDeUsuario' pagina='proveedor'%}">proveedores</a>.</p>
                         <p>Por lo tanto, vea alguno de esos dos modulos para mas informacion</p>
 
                         <br>

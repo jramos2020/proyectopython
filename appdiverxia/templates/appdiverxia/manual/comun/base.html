@@ -16,20 +16,20 @@
             <div class="menu-lateral">
                 <h2>MENÚ</h2>
                 <ul>
-                    <li><a href="/appdiverxia/panel">Volver al panel de administracion</a></li>
-                    <li><a href="/appdiverxia/verManualDeUsuario/inicio">Inicio</a></li>
-                    <li><a href="/appdiverxia/verManualDeUsuario/producto">Producto</a></li>
-                    <li><a href="/appdiverxia/verManualDeUsuario/proveedor">Proveedor</a></li>
-                    <li><a href="/appdiverxia/verManualDeUsuario/pedido">Pedido</a></li>
-                    <li><a href="/appdiverxia/verManualDeUsuario/clientes">Clientes</a></li>
-                    <li><a href="/appdiverxia/verManualDeUsuario/factura">Factura</a></li>
-                    <li><a href="/appdiverxia/verManualDeUsuario/usuarios">Usuarios</a></li>
-                    <li><a href="/appdiverxia/verManualDeUsuario/opciones">Opciones</a></li>
+                    <li><a href="{% url 'appdiverxia:panel' %}">Volver al panel de administracion</a></li>
+                    <li><a href="{% url 'appdiverxia:verManualDeUsuario' pagina='inicio' %}">Inicio</a></li>
+                    <li><a href="{% url 'appdiverxia:verManualDeUsuario' pagina='producto'%}">Producto</a></li>
+                    <li><a href="{% url 'appdiverxia:verManualDeUsuario' pagina='proveedor' %}">Proveedor</a></li>
+                    <li><a href="{% url 'appdiverxia:verManualDeUsuario' pagina='pedido' %}">Pedido</a></li>
+                    <li><a href="{% url 'appdiverxia:verManualDeUsuario' pagina='clientes' %}">Clientes</a></li>
+                    <li><a href="{% url 'appdiverxia:verManualDeUsuario' pagina='factura' %}">Factura</a></li>
+                    <li><a href="{% url 'appdiverxia:verManualDeUsuario' pagina='usuarios' %}">Usuarios</a></li>
+                    <li><a href="{% url 'appdiverxia:verManualDeUsuario' pagina='opciones' %}">Opciones</a></li>
                 </ul>
             </div>
                 {% block content %}
                 {% endblock %}
         </div>
-        <script src="{% static 'appdiverxia/js/manual.js' %}""></script>
+        <script src="{% static 'appdiverxia/js/manual.js' %}"></script>
     </body>
 </html>
