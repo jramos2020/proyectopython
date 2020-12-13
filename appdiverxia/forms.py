@@ -145,10 +145,11 @@ class ClienteFormulario(forms.ModelForm):
         label="Documento",
         max_length=11,
         min_length=8,
-        widget=forms.TextInput( attrs={'placeholder': 'Inserte el documento de identidad del cliente',
-                                                'id': 'documento', 'class': 'form-control'}
-                            )
+        widget=forms.TextInput(attrs={'placeholder': 'Inserte el documento de identidad del cliente',
+                                      'id': 'documento', 'class': 'form-control'}
+                               )
     )
+
     class Meta:
         model = Cliente
         fields = ['tipoDocumento', 'documento', 'nombre', 'apellido', 'direccion', 'nacimiento', 'telefono', 'correo',
@@ -199,7 +200,8 @@ class EmitirFacturaFormulario(forms.Form):
                                                                    'id': 'productos', 'class': 'form-control'}))
     metodospagos = MetodoPago.listaMetodos()
     metodopago = MisMetodosPagos(queryset=metodospagos, widget=forms.Select(
-            attrs={'placeholder': 'Seleccione un metodo de pago', 'class': 'form-control select-group'}))
+        attrs={'placeholder': 'Seleccione un metodo de pago', 'class': 'form-control select-group'}))
+
 
 class DetallesFacturaFormulario(forms.Form):
     productos = Producto.productosRegistrados()
@@ -248,9 +250,35 @@ class EmitirPedidoFormulario(forms.Form):
 
 
 class DetallesPedidoFormulario(forms.Form):
+   productos = Producto.productosRegistrados()
+   precios = Producto.preciosProductos()
+
+   descripcion = MisProductos(queryset=productos, widget=forms.Select(
+        attrs={'placeholder': 'El producto a debitar', 'class': 'form-control',
+               'onchange': 'establecerPrecio(this)'}))
+
+   vista_precio = MisPrecios(required=False, queryset=productos, label="Precio del producto",
+                                   widget=forms.Select(
+                                       attrs={'placeholder': 'El precio del producto', 'class': 'form-control',
+                                              'disabled': 'true'}))
+
+   cantidad = forms.IntegerField(label="Cantidad", min_value=0, widget=forms.NumberInput(
+        attrs={'placeholder': 'Introduzca la cantidad del producto', 'class': 'form-control', 'value': '0',
+               'onchange': 'calculoPrecio(this)'}))
+
+   subtotal = forms.DecimalField(required=False, label="Sub-total", min_value=0, widget=forms.NumberInput(
+        attrs={'placeholder': 'Monto sub-total', 'class': 'form-control', 'disabled': 'true', 'value': '0'}))
+
+   valor_subtotal = forms.DecimalField(min_value=0, widget=forms.NumberInput(
+        attrs={'placeholder': 'Monto sub-total', 'class': 'form-control', 'hidden': 'true', 'value': '0'}))
+
+
+"""
+
+class DetallesPedidoFormulario(forms.Form):
     def __init__(self, *args, **kwargs):
-        super(DetallesPedidoFormulario, self).__init__(*args, **kwargs)
         # body of the constructor
+        super(DetallesPedidoFormulario, self).__init__(*args, **kwargs)
         self.productos = Producto.productosRegistrados()
         self.precios = Producto.preciosProductos()
 
@@ -272,6 +300,7 @@ class DetallesPedidoFormulario(forms.Form):
 
         self.valor_subtotal = forms.DecimalField(min_value=0, widget=forms.NumberInput(
             attrs={'placeholder': 'Monto sub-total', 'class': 'form-control', 'hidden': 'true', 'value': '0'}))
+"""
 
 
 class ProveedorFormulario(forms.ModelForm):
@@ -289,9 +318,9 @@ class ProveedorFormulario(forms.ModelForm):
         label="Documento",
         max_length=11,
         min_length=8,
-        widget=forms.TextInput( attrs={'placeholder': 'Inserte el documento de identidad del proveedor',
-                                                'id': 'documento', 'class': 'form-control'}
-                            )
+        widget=forms.TextInput(attrs={'placeholder': 'Inserte el documento de identidad del proveedor',
+                                      'id': 'documento', 'class': 'form-control'}
+                               )
     )
 
     class Meta:

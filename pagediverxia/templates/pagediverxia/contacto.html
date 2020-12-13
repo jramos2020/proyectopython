@@ -128,7 +128,7 @@
                         <h2>Contáctanos</h2>
                         <h3>Escríbenos tus datos para contactarnos contigo a la brevedad. </h3>
                         <form action="{% url 'contacto.enviar' %}" method="post" {% csrf_token %}>
-
+{% csrf_token %}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">

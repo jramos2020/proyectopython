@@ -45,10 +45,11 @@ class ContactoEnviar(View):
         """ % (data['nombre'], data['correo'], data['celular'], data['mensaje'])
 
         send_mail(
-            asunto,
-            mensaje,
-            'jramos@luisml.com',
-            ['juhanramos3@gmail.com'],
+            subject=asunto,
+            message=mensaje,
+            html_message=mensaje,
+            from_email='jramos@gmail.com',
+            recipient_list=[data['correo']],
             fail_silently=False,
         )
 
