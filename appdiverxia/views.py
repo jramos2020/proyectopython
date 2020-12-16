@@ -987,19 +987,13 @@ class GenerarFacturaPDF(LoginRequiredMixin, View):
 
         factura = Factura.objects.get(id=p)
         general = Opciones.objects.get(id=1)
-        detalles = DetalleFactura.objects.filter(id_factura_id=p)
-        doctipo = None
-        if factura.cliente.documento_tipo == '1':
-            doctipo = 'DNI'
+        detaDNI'
         else:
             doctipo = 'RUC'
         data = {
             'fecha': factura.fecha,
             'monto_general': factura.monto_general,
-            'nombre_cliente': factura.cliente.nombre + " " + factura.cliente.apellido,
-            'documento_cliente': factura.cliente.documento,
-            'documento_tipo': doctipo,
-            'id_reporte': factura.id,
+
             'igv': factura.igv.valor_igv,
             'detalles': detalles,
             'modo': 'factura',
