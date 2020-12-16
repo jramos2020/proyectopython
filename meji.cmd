@@ -1,3 +1,3 @@
 git add -A
-git commit -m "chucu cambios"
+git commit -m "cambios"
 git push

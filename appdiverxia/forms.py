@@ -137,17 +137,34 @@ class ClienteFormulario(forms.ModelForm):
         label="Tipo de documento",
         max_length=2,
         widget=forms.Select(choices=tipoC, attrs={'placeholder': 'Tipo de documento',
-                                                  'id': 'tipoDocumento', 'class': 'form-control'}
+                                                  'id': 'tipoDocumento',
+                                                  'class': 'form-control',
+                                                  'onchange':'changeDocType(this)'
+                                                  }
                             )
     )
 
     documento = forms.CharField(
         label="Documento",
-        max_length=11,
         min_length=8,
+        max_length=11,
         widget=forms.TextInput(attrs={'placeholder': 'Inserte el documento de identidad del cliente',
                                       'id': 'documento', 'class': 'form-control'}
                                )
+    )
+
+    apellido = forms.CharField(
+        label="Apellido",
+        required=False,
+        widget=forms.TextInput(
+                attrs={'class': 'form-control', 'id': 'apellido', 'placeholder': 'El apellido del cliente'})
+    )
+
+    nacimiento = forms.DateField(
+        label="Fecha de nacimiento",
+        required=False,
+        widget=forms.DateInput(format=('%d-%m-%Y'),
+                                          attrs={'id': 'hasta', 'class': 'form-control', 'type': 'date'})
     )
 
     class Meta:
@@ -304,34 +321,23 @@ class DetallesPedidoFormulario(forms.Form):
 
 
 class ProveedorFormulario(forms.ModelForm):
-    tipoC = [('1', 'DNI'), ('2', 'RUC')]
-
-    tipoDocumento = forms.CharField(
-        label="Tipo de documento",
-        max_length=1,
-        widget=forms.Select(choices=tipoC, attrs={'placeholder': 'Tipo de documento',
-                                                  'id': 'tipoDocumento', 'class': 'form-control'}
-                            )
-    )
 
     documento = forms.CharField(
-        label="Documento",
+        label="RUC",
         max_length=11,
-        min_length=8,
-        widget=forms.TextInput(attrs={'placeholder': 'Inserte el documento de identidad del proveedor',
+        min_length=11,
+        widget=forms.TextInput(attrs={'placeholder': 'Inserte el RUC del proveedor',
                                       'id': 'documento', 'class': 'form-control'}
                                )
     )
 
     class Meta:
-        model = Cliente
-        fields = ['tipoDocumento', 'documento', 'nombre', 'apellido', 'direccion', 'nacimiento', 'telefono', 'correo']
+        model = Proveedor
+        fields = ['documento', 'nombre','direccion', 'telefono', 'correo']
         labels = {
             'documento': 'Documento del proveedor',
             'nombre': 'Nombre del proveedor',
-            'apellido': 'Apellido del proveedor',
             'direccion': 'Direccion del proveedor',
-            'nacimiento': 'Fecha de nacimiento del proveedor',
             'telefono': 'Numero telefonico del proveedor',
             'correo': 'Correo electronico del proveedor',
         }
@@ -340,12 +346,8 @@ class ProveedorFormulario(forms.ModelForm):
                                                 'id': 'documento', 'class': 'form-control'}),
             'nombre': forms.TextInput(attrs={'placeholder': 'Inserte el primer o primeros nombres del proveedor',
                                              'id': 'nombre', 'class': 'form-control'}),
-            'apellido': forms.TextInput(
-                attrs={'class': 'form-control', 'id': 'apellido', 'placeholder': 'El apellido del proveedor'}),
-            'direccion': forms.TextInput(
+           'direccion': forms.TextInput(
                 attrs={'class': 'form-control', 'id': 'direccion', 'placeholder': 'Direccion del proveedor'}),
-            'nacimiento': forms.DateInput(format=('%d-%m-%Y'),
-                                          attrs={'id': 'hasta', 'class': 'form-control', 'type': 'date'}),
             'telefono': forms.TextInput(attrs={'id': 'telefono', 'class': 'form-control',
                                                'placeholder': 'El telefono del proveedor'}),
             'correo': forms.TextInput(attrs={'placeholder': 'Correo del proveedor',

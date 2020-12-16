@@ -642,7 +642,7 @@ class AgregarCliente(LoginRequiredMixin, View):
             return HttpResponseRedirect(reverse("appdiverxia:agregarCliente"))
         else:
             # De lo contrario lanzara el mismo formulario
-            return render(request, 'appdiverxia/cliente/agregarCliente.html', {'form': form})
+            return render(request, 'appdiverxia/cliente/agregarCliente.html', {'form': form,'myerros':form.errors})
 
     def get(self, request):
         form = ClienteFormulario()
@@ -989,7 +989,7 @@ class GenerarFacturaPDF(LoginRequiredMixin, View):
         general = Opciones.objects.get(id=1)
         detalles = DetalleFactura.objects.filter(id_factura_id=p)
         doctipo = None
-        if factura.cliente.documento_tipo == 1:
+        if factura.cliente.documento_tipo == '1':
             doctipo = 'DNI'
         else:
             doctipo = 'RUC'
@@ -1047,18 +1047,14 @@ class AgregarProveedor(LoginRequiredMixin, View):
 
         if form.is_valid():
             # Procesa y asigna los datos con form.cleaned_data como se requiere
-
-            documento_tipo = form.cleaned_data['tipoDocumento']
             documento = form.cleaned_data['documento']
             nombre = form.cleaned_data['nombre']
-            apellido = form.cleaned_data['apellido']
             direccion = form.cleaned_data['direccion']
-            nacimiento = form.cleaned_data['nacimiento']
             telefono = form.cleaned_data['telefono']
             correo = form.cleaned_data['correo']
 
-            proveedor = Proveedor(documento_tipo=documento_tipo, documento=documento, nombre=nombre, apellido=apellido,
-                                  direccion=direccion, nacimiento=nacimiento, telefono=telefono,
+            proveedor = Proveedor(documento=documento, nombre=nombre,
+                                  direccion=direccion, telefono=telefono,
                                   correo=correo)
             proveedor.save()
             form = ProveedorFormulario()

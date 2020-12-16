@@ -10,6 +10,30 @@
 
 
         }
+        function changeDocType(select) {
+            apellido= document.getElementById('apellido');
+               hasta= document.getElementById('hasta');
+               documento= document.getElementById('documento');
+            if(select.value=='1'){
+                documento.setAttribute('minlength',8)
+                documento.setAttribute('maxlength',8)
+                if(apellido){
+                   apellido.parentElement.style.display=''
+               }
+               if(hasta){
+                   hasta.parentElement.style.display=''
+               }
+            }else{
+                documento.setAttribute('minlength',11)
+                documento.setAttribute('maxlength',11)
+               if(apellido){
+                   apellido.parentElement.style.display='none'
+               }
+               if(hasta){
+                   hasta.parentElement.style.display='none'
+               }
+            }
+        }
 
     </script>
 
@@ -26,8 +50,9 @@
         <section class="section">
             <div class="row sameheight-container">
                 <div class="col-md-12">
-
-
+{% if form.errors %}
+ <div class="alert alert-warning">{{ form.errors }}</div>
+ {% endif %}
                     {% for error in form.non_field_errors %}
                         <div class="card card-primary">
                         <div class="card-header">

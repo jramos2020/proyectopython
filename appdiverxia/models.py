@@ -115,9 +115,9 @@ class Cliente(models.Model):
     documento_tipo = models.CharField(max_length=3)
     documento = models.CharField(max_length=11, unique=True)
     nombre = models.CharField(max_length=40)
-    apellido = models.CharField(max_length=40)
+    apellido = models.CharField(max_length=40,null=True)
     direccion = models.CharField(max_length=200)
-    nacimiento = models.DateField()
+    nacimiento = models.DateField(null=True)
     telefono = models.CharField(max_length=9)
     correo = models.CharField(max_length=100)
 
@@ -202,13 +202,10 @@ class DetalleFactura(models.Model):
 # ------------------------------------------PROVEEDOR-----------------------------------
 class Proveedor(models.Model):
     # id
-    documento_tipo = models.CharField(max_length=3)
-    documento = models.CharField(max_length=11, unique=True)
+    documento = models.CharField(max_length=11,unique=True)
     nombre = models.CharField(max_length=40)
-    apellido = models.CharField(max_length=40)
     direccion = models.CharField(max_length=200)
-    nacimiento = models.DateField()
-    telefono = models.CharField(max_length=20)
+    telefono = models.CharField(max_length=10)
     correo = models.CharField(max_length=100)
 
     @classmethod
@@ -218,7 +215,7 @@ class Proveedor(models.Model):
         for indice, objeto in enumerate(objetos):
             arreglo.append([])
             arreglo[indice].append(objeto.documento)
-            nombre_cliente = objeto.nombre + " " + objeto.apellido
+            nombre_cliente = objeto.nombre
             arreglo[indice].append("%s. C.I: %s" % (nombre_cliente, self.formatearDocumento(objeto.documento)))
 
         return arreglo
